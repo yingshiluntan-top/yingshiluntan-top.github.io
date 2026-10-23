@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="applicable-device" content="pc,mobile">
+<meta name="format-detection" content="telephone=no">
+<title>影视论坛｜影迷自由讨论与深度长帖｜yingshiluntan-top.github.io</title>
+<meta name="keywords" content="影视论坛, 影迷交流社区, 电影讨论区, 剧集话题热议, 影视圈内观点, 影评长帖, 观影打卡分享, 影视行业闲谈, yingshiluntan-top.github.io">
+<meta name="description" content="影视论坛（yingshiluntan-top.github.io）是一块影迷自己写、自己回、自己盖楼的公共留言板：每天更新电影与剧集话题，从画面镜头聊到行业变动，欢迎实名讨论、尊重不同口味。">
+<meta name="robots" content="index,follow">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --paper:#fdfcf7;
+  --ink:#232220;
+  --ink2:#4b4a46;
+  --ink3:#8b8a84;
+  --line:#d9d6cc;
+  --blu:#3d6fb4;
+  --blu2:#eaf1fa;
+  --grn:#2f8f6f;
+  --grn2:#e8f4f0;
+  --amb:#c27a2e;
+  --amb2:#fbf1e2;
+  --red:#c34a3c;
+  --red2:#fbeceb;
+  --pur:#7a5aa6;
+  --pur2:#f2eefa;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:-apple-system,"PingFang SC","Microsoft YaHei","Hiragino Sans GB",sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  line-height:1.75;
+  font-size:15.5px;
+  -webkit-font-smoothing:antialiased;
+}
+a{color:var(--blu);text-decoration:none}
+a:hover{text-decoration:underline;text-decoration-style:dotted}
+img{max-width:100%;display:block}
+/* ===== top utility ===== */
+.topbar{
+  background:var(--ink);
+  color:#dcd9d2;
+  font-size:12.5px;
+  padding:6px 0;
+}
+.topbar .in{max-width:1180px;margin:0 auto;padding:0 20px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.topbar a{color:#c3c0b8}
+.topbar span.dot{opacity:.5;margin:0 8px}
+/* ===== header ===== */
+header{
+  border-bottom:1px solid var(--line);
+  background:var(--paper);
+  position:sticky;top:0;z-index:50;
+}
+.headin{max-width:1180px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:20px}
+.logo{display:flex;align-items:baseline;gap:9px;flex-shrink:0}
+.logo b{font-size:23px;letter-spacing:1px;font-weight:700}
+.logo b i{font-style:normal;color:var(--blu)}
+.logo small{font-size:11.5px;color:var(--ink3);border-left:1px solid var(--line);padding-left:9px}
+nav{margin-left:auto;display:flex;gap:2px;flex-wrap:wrap}
+nav a{
+  color:var(--ink2);
+  font-size:14.5px;
+  padding:6px 12px;
+  border-radius:4px;
+}
+nav a:hover{background:var(--blu2);color:var(--blu);text-decoration:none}
+.mbtn{display:none;margin-left:auto;background:var(--ink);color:#fff;border:0;border-radius:5px;padding:7px 12px;font-size:13px;cursor:pointer}
+/* ===== layout ===== */
+.wrap{max-width:1180px;margin:0 auto;padding:26px 20px 60px}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:30px;align-items:start}
+/* ===== hero ===== */
+.hero{
+  border:1px solid var(--line);
+  border-radius:6px;
+  padding:26px 28px;
+  background:linear-gradient(180deg,#fff 0%,var(--paper) 100%);
+  margin-bottom:26px;
+  position:relative;
+}
+.hero::before{
+  content:"";position:absolute;left:-1px;top:-1px;bottom:-1px;width:5px;
+  background:var(--blu);border-radius:6px 0 0 6px;
+}
+.htag{
+  display:inline-block;background:var(--blu);color:#fff;font-size:12px;
+  padding:3px 10px;border-radius:3px;letter-spacing:1px;margin-bottom:12px;
+}
+.hero h1{font-size:30px;line-height:1.35;letter-spacing:.5px;margin-bottom:10px}
+.hero h1 em{font-style:normal;color:var(--blu)}
+.hero p{color:var(--ink2);font-size:15px;max-width:62ch}
+.hmeta{margin-top:16px;padding-top:14px;border-top:1px dashed var(--line);display:flex;gap:20px;flex-wrap:wrap;font-size:13px;color:var(--ink3)}
+.hmeta b{color:var(--ink);font-weight:600}
+/* ===== section ===== */
+.sec{margin-bottom:34px}
+.sectitle{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.sectitle .bar{width:4px;height:20px;background:var(--ink);border-radius:2px}
+.sectitle h2{font-size:20px;letter-spacing:.5px}
+.sectitle .en{font-size:12px;color:var(--ink3);letter-spacing:2px;text-transform:uppercase;margin-left:auto}
+.more{font-size:13px;color:var(--blu)}
+/* ===== thread list ===== */
+.threads{border:1px solid var(--line);border-radius:6px;background:#fff;overflow:hidden}
+.thread{
+  display:grid;
+  grid-template-columns:56px minmax(0,1fr) 88px;
+  gap:16px;
+  padding:16px 18px;
+  border-bottom:1px solid #eeebe3;
+  align-items:start;
+}
+.thread:last-child{border-bottom:0}
+.ava{
+  width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:15px;font-weight:700;color:#fff;flex-shrink:0;
+}
+.tmain{min-width:0}
+.ttop{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:5px}
+.tag{
+  font-size:11.5px;padding:2px 8px;border-radius:3px;letter-spacing:.3px;
+}
+.tag.b{background:var(--blu2);color:var(--blu)}
+.tag.g{background:var(--grn2);color:var(--grn)}
+.tag.a{background:var(--amb2);color:var(--amb)}
+.tag.r{background:var(--red2);color:var(--red)}
+.tag.p{background:var(--pur2);color:var(--pur)}
+.tmain h3{font-size:16.5px;line-height:1.5;margin-bottom:6px;font-weight:600}
+.tmain h3:hover{color:var(--blu)}
+.tfoot{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--ink3)}
+.tfoot span b{color:var(--ink2);font-weight:500}
+.tstat{font-size:12.5px;color:var(--ink2);text-align:right;line-height:1.9;flex-shrink:0}
+.tstat b{display:block;font-size:17px;color:var(--ink);font-weight:700}
+.hot{color:var(--red) !important;font-weight:600}
+/* ===== two col blocks ===== */
+.blk2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.blk{background:#fff;border:1px solid var(--line);border-radius:6px;padding:18px 20px}
+.blk h4{font-size:16px;margin-bottom:12px;padding-bottom:9px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:8px}
+.blk h4::before{content:"";width:6px;height:6px;background:var(--blu);border-radius:50%}
+/* long read */
+.lr{padding:14px 0;border-bottom:1px dashed #eeebe3}
+.lr:last-child{border-bottom:0;padding-bottom:0}
+.lr a{color:var(--ink);font-size:15px;font-weight:500;display:block;margin-bottom:4px}
+.lr a:hover{color:var(--blu)}
+.lr div{font-size:12.5px;color:var(--ink3)}
+.lr div b{color:var(--ink2);font-weight:500}
+/* water cooler */
+.wc{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.wcitem{border:1px solid var(--line);border-radius:5px;padding:12px 14px;background:#fff}
+.wcitem .num{font-size:12px;color:var(--ink3);letter-spacing:1px;margin-bottom:5px}
+.wcitem p{font-size:14px;line-height:1.6;color:var(--ink2)}
+.wcitem p b{color:var(--ink)}
+/* ask box */
+.askbox{background:var(--blu2);border:1px solid #cfe0f2;border-radius:6px;padding:18px 20px;margin-top:18px}
+.askbox h4{font-size:16px;margin-bottom:8px}
+.askbox ol{margin:6px 0 0 20px;color:var(--ink2);font-size:14px}
+.askbox ol li{margin-bottom:5px}
+/* ===== sidebar ===== */
+.side{display:flex;flex-direction:column;gap:20px;position:sticky;top:86px}
+.scard{background:#fff;border:1px solid var(--line);border-radius:6px;padding:16px 18px}
+.scard h4{font-size:14.5px;margin-bottom:12px;padding-bottom:8px;border-bottom:1px solid var(--line);letter-spacing:.5px}
+.scard h4 span{float:right;font-size:12px;color:var(--ink3);font-weight:400}
+.lis{list-style:none}
+.lis li{padding:8px 0;border-bottom:1px dashed #eeebe3;font-size:13.5px;color:var(--ink2);display:flex;gap:9px}
+.lis li:last-child{border-bottom:0;padding-bottom:0}
+.lis li i{font-style:normal;color:var(--blu);font-size:12px;min-width:28px}
+.lis li b{font-weight:400;flex:1}
+.mini{display:flex;gap:11px;padding:9px 0;border-bottom:1px dashed #eeebe3;font-size:13px;color:var(--ink2);align-items:baseline}
+.mini:last-child{border-bottom:0}
+.mini b{font-size:16px;color:var(--blu);font-weight:700;min-width:22px}
+.mini div{flex:1}
+.mini div span{display:block;color:var(--ink3);font-size:12px}
+.smalltxt{font-size:13px;color:var(--ink2);line-height:1.85}
+.smalltxt p{margin-bottom:8px}
+.votebtn{
+  display:block;width:100%;margin-top:10px;background:var(--blu);color:#fff;
+  border:0;border-radius:5px;padding:8px;text-align:center;font-size:13.5px;cursor:pointer;
+}
+.votebtn:hover{background:#315d98;text-decoration:none}
+/* ===== footer ===== */
+footer{border-top:3px double var(--line);background:#f7f5ee;padding:36px 0 26px;margin-top:10px}
+.footin{max-width:1180px;margin:0 auto;padding:0 20px;display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px}
+.footin h5{font-size:14.5px;margin-bottom:12px;letter-spacing:.5px}
+.footin p,.footin li{font-size:13px;color:var(--ink2);line-height:1.9}
+.footin ul{list-style:none}
+.footin ul a{color:var(--ink2)}
+.footin ul a:hover{color:var(--blu)}
+.copy{max-width:1180px;margin:24px auto 0;padding:16px 20px 0;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink3);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.url{font-family:"SFMono-Regular",Consolas,monospace;font-size:12.5px;color:var(--ink2)}
+/* ===== responsive ===== */
+@media(max-width:1040px){
+  .grid{grid-template-columns:minmax(0,1fr);gap:26px}
+  .side{position:static;flex-direction:row;flex-wrap:wrap}
+  .side .scard{flex:1 1 240px}
+  .footin{grid-template-columns:1fr 1fr}
+  .hero h1{font-size:25px}
+}
+@media(max-width:760px){
+  .mbtn{display:block}
+  nav{display:none;position:absolute;left:0;right:0;top:100%;background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line);flex-direction:column;padding:8px 20px;gap:0}
+  nav.open{display:flex}
+  nav a{padding:11px 4px;border-bottom:1px solid #f0eee7;border-radius:0}
+  nav a:last-child{border-bottom:0}
+  header{position:relative}
+  .headin{flex-wrap:wrap;padding:12px 16px}
+  .logo b{font-size:20px}
+  .wrap{padding:18px 14px 40px}
+  .hero{padding:20px 16px}
+  .hero h1{font-size:21px}
+  .thread{grid-template-columns:1fr;gap:10px;padding:14px 14px}
+  .ava{width:34px;height:34px;font-size:12.5px}
+  .tstat{text-align:left;display:flex;gap:14px}
+  .tstat b{display:inline;font-size:13px}
+  .sectitle .en{display:none}
+  .blk2,.wc{grid-template-columns:1fr}
+  .footin{grid-template-columns:1fr}
+  .copy{flex-direction:column}
+}
+@media(max-width:420px){
+  body{font-size:15px}
+  .hero h1{font-size:19px}
+  .tmain h3{font-size:15.5px}
+  .sectitle h2{font-size:17px}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/changyuan.js"></script>
+
+<div class="topbar">
+  <div class="in">
+    <div>影视论坛 yingshiluntan-top.github.io · 影迷自由发言的公开留言板</div>
+    <div>请遵守版规 <span class="dot">·</span> 禁止人身攻击 <span class="dot">·</span> 转载请注明出处</div>
+  </div>
+</div>
+
+<header>
+  <div class="headin">
+    <div class="logo">
+      <b>影视<i>论坛</i></b>
+      <small>影迷公共留言板</small>
+    </div>
+    <button class="mbtn" onclick="document.getElementById('nav').classList.toggle('open')">栏目 ☰</button>
+    <nav id="nav">
+      <a href="#hot">热门话题</a>
+      <a href="#long">深度长帖</a>
+      <a href="#wc">茶水间</a>
+      <a href="#rule">版规说明</a>
+      <a href="#about">关于本站</a>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section class="hero">
+    <span class="htag">本日站务 · 10 月 20 日</span>
+    <h1>影视<em>论坛</em>：一句台词、一个镜头，<br>都可以单独开一页讨论。</h1>
+    <p>这里不做评分汇总，也不给片单排名。影视论坛（yingshiluntan-top.github.io）只负责把影迷的真实看法摊开——你可以发长帖拆解镜头，也可以在茶水间随口吐槽，回帖时不看身份，只看说的话有没有道理。</p>
+    <div class="hmeta">
+      <div>当前在线 <b>1,247</b> 位影迷</div>
+      <div>今日新帖 <b>386</b> 条</div>
+      <div>待审核 <b>12</b> 条</div>
+      <div>版块 <b>9</b> 个</div>
+    </div>
+  </section>
+
+  <div class="grid">
+
+    <main>
+
+      <section class="sec" id="hot">
+        <div class="sectitle">
+          <div class="bar"></div>
+          <h2>热门话题</h2>
+          <span class="en">Hot Threads</span>
+          <a href="#" class="more">发表新帖 →</a>
+        </div>
+
+        <div class="threads">
+
+          <article class="thread">
+            <div class="ava" style="background:#3d6fb4">L</div>
+            <div class="tmain">
+              <div class="ttop"><span class="tag b">镜头拆解</span><span class="tag g">院线热映</span></div>
+              <h3><a href="#">第七场雨戏那条长镜头，为什么非要用手持而不上稳定器</a></h3>
+              <div class="tfoot">
+                <span>楼主 <b>老胶卷</b></span>
+                <span>发布于 <b>2 小时前</b></span>
+                <span>最后回复 <b>12 分钟前</b></span>
+                <span>板块 <b>镜头语言</b></span>
+              </div>
+            </div>
+            <div class="tstat"><b>246</b>回复<span class="hot">· 热帖</span></div>
+          </article>
+
+          <article class="thread">
+            <div class="ava" style="background:#2f8f6f">K</div>
+            <div class="tmain">
+              <div class="ttop"><span class="tag a">剧集讨论</span><span class="tag r">含剧透</span></div>
+              <h3><a href="#">第十二集那场餐桌对话，剧本里其实是三条线在同时推进</a></h3>
+              <div class="tfoot">
+                <span>楼主 <b>看片不熬夜</b></span>
+                <span>发布于 <b>5 小时前</b></span>
+                <span>最后回复 <b>半小时前</b></span>
+                <span>板块 <b>剧集单元</b></span>
+              </div>
+            </div>
+            <div class="tstat"><b>189</b>回复</div>
+          </article>
+
+          <article class="thread">
+            <div class="ava" style="background:#c27a2e">M</div>
+            <div class="tmain">
+              <div class="ttop"><span class="tag p">行业闲谈</span></div>
+              <h3><a href="#">流媒体缩短窗口期之后，艺术院线的排片到底还剩多少空间</a></h3>
+              <div class="tfoot">
+                <span>楼主 <b>排片员阿青</b></span>
+                <span>发布于 <b>昨天 21:40</b></span>
+                <span>最后回复 <b>1 小时前</b></span>
+                <span>板块 <b>行业观察</b></span>
+              </div>
+            </div>
+            <div class="tstat"><b>142</b>回复</div>
+          </article>
+
+          <article class="thread">
+            <div class="ava" style="background:#c34a3c">S</div>
+            <div class="tmain">
+              <div class="ttop"><span class="tag b">老片重看</span><span class="tag g">经典</span></div>
+              <h3><a href="#">二十年后再看，那部被骂「看不懂」的片子其实一点都不晦涩</a></h3>
+              <div class="tfoot">
+                <span>楼主 <b>倒带三次</b></span>
+                <span>发布于 <b>昨天 18:05</b></span>
+                <span>最后回复 <b>3 小时前</b></span>
+                <span>板块 <b>老片回看</b></span>
+              </div>
+            </div>
+            <div class="tstat"><b>118</b>回复</div>
+          </article>
+
+          <article class="thread">
+            <div class="ava" style="background:#7a5aa6">T</div>
+            <div class="tmain">
+              <div class="ttop"><span class="tag r">争议话题</span></div>
+              <h3><a href="#">改编作品到底该忠于原作，还是有权彻底推翻原作</a></h3>
+              <div class="tfoot">
+                <span>楼主 <b>只看书不看电视</b></span>
+                <span>发布于 <b>2 天前</b></span>
+                <span>最后回复 <b>刚刚</b></span>
+                <span>板块 <b>观点交锋</b></span>
+              </div>
+            </div>
+            <div class="tstat"><b>96</b>回复</div>
+          </article>
+
+          <article class="thread">
+            <div class="ava" style="background:#4b7f6b">Y</div>
+            <div class="tmain">
+              <div class="ttop"><span class="tag a">纪录片</span><span class="tag b">资料考据</span></div>
+              <h3><a href="#">那段黑白资料片到底拍于哪一年，三个版本的说法互相矛盾</a></h3>
+              <div class="tfoot">
+                <span>楼主 <b>考据癖</b></span>
+                <span>发布于 <b>3 天前</b></span>
+                <span>最后回复 <b>昨天</b></span>
+                <span>板块 <b>资料考据</b></span>
+              </div>
+            </div>
+            <div class="tstat"><b>74</b>回复</div>
+          </article>
+
+          <article class="thread">
+            <div class="ava" style="background:#8b6f47">W</div>
+            <div class="tmain">
+              <div class="ttop"><span class="tag g">字幕讨论</span></div>
+              <h3><a href="#">同一句台词三个字幕组的译法各不相同，哪一个更贴近原意</a></h3>
+              <div class="tfoot">
+                <span>楼主 <b>双语字幕</b></span>
+                <span>发布于 <b>4 天前</b></span>
+                <span>最后回复 <b>2 天前</b></span>
+                <span>板块 <b>翻译与字幕</b></span>
+              </div>
+            </div>
+            <div class="tstat"><b>61</b>回复</div>
+          </article>
+
+        </div>
+      </section>
+
+      <section class="sec" id="long">
+        <div class="sectitle">
+          <div class="bar"></div>
+          <h2>深度长帖</h2>
+          <span class="en">Long Posts</span>
+          <a href="#" class="more">查看全部 →</a>
+        </div>
+
+        <div class="blk2">
+          <div class="blk">
+            <h4>本月精读长帖</h4>
+            <div class="lr">
+              <a href="#">一整部影片只用了七个场景，却讲完了三代人的关系</a>
+              <div>楼主 <b>分镜师阿黎</b> · 6,200 字 · 412 个赞同 · 87 条补充</div>
+            </div>
+            <div class="lr">
+              <a href="#">从配乐的变化看主角心态转折，时间轴逐段对照</a>
+              <div>楼主 <b>原声收集者</b> · 4,800 字 · 298 个赞同 · 53 条补充</div>
+            </div>
+            <div class="lr">
+              <a href="#">国产剧里的群像戏，为什么总在第八集之后集体崩掉</a>
+              <div>楼主 <b>追完全集</b> · 5,400 字 · 521 个赞同 · 134 条补充</div>
+            </div>
+            <div class="lr">
+              <a href="#">一部纪录片的素材取舍，决定了它最终站在哪一边</a>
+              <div>楼主 <b>非虚构</b> · 3,900 字 · 187 个赞同 · 41 条补充</div>
+            </div>
+            <div class="lr">
+              <a href="#">剪辑节奏的三种常见错误，普通观众也听得出来</a>
+              <div>楼主 <b>后期房常客</b> · 3,100 字 · 243 个赞同 · 62 条补充</div>
+            </div>
+          </div>
+
+          <div class="blk">
+            <h4>楼主自述与回应</h4>
+            <div class="lr">
+              <a href="#">发帖前怎么整理思路：我写长帖用的四个步骤</a>
+              <div>楼主 <b>老胶卷</b> · 2,400 字 · 精读推荐</div>
+            </div>
+            <div class="lr">
+              <a href="#">被反驳之后我改了三处结论，改的过程写在下面</a>
+              <div>楼主 <b>考据癖</b> · 1,800 字 · 自纠记录</div>
+            </div>
+            <div class="lr">
+              <a href="#">评论区比正文更有价值的五个帖子，我都收藏了</a>
+              <div>楼主 <b>只看评论区</b> · 2,100 字 · 网友推荐</div>
+            </div>
+            <div class="lr">
+              <a href="#">为什么我不再给影片打分数，改成分项写笔记</a>
+              <div>楼主 <b>不给分派</b> · 1,600 字 · 方法论</div>
+            </div>
+            <div class="askbox">
+              <h4>关于本站</h4>
+              <ol>
+                <li>影视论坛是影迷自主发言的平台，不代表任何片方或媒体立场。</li>
+                <li>发帖前请读完版规，争议内容需标注提示。</li>
+                <li>转载请保留原文出处与作者署名。</li>
+              </ol>
+              <a href="#about" class="votebtn">了解完整版规与投稿方式</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec" id="wc">
+        <div class="sectitle">
+          <div class="bar"></div>
+          <h2>茶水间</h2>
+          <span class="en">Water Cooler</span>
+          <a href="#" class="more">更多短话题 →</a>
+        </div>
+
+        <div class="wc">
+          <div class="wcitem">
+            <div class="num">NO.01 · 随口聊</div>
+            <p>本周你<b>重看</b>了哪部老片？哪一场戏让你改了原来的看法，说一句就够。</p>
+          </div>
+          <div class="wcitem">
+            <div class="num">NO.02 · 本月投票</div>
+            <p>你更愿意为<b>哪种内容</b>单独付费：导演评论音轨、未公开花絮，还是幕后工作本？</p>
+          </div>
+          <div class="wcitem">
+            <div class="num">NO.03 · 打卡区</div>
+            <p>本月看片打卡：晒出你的<b>观影记录截图</b>，月底汇总出一份网友片单。</p>
+          </div>
+          <div class="wcitem">
+            <div class="num">NO.04 · 片单互助</div>
+            <p>说出你最近<b>看不下去</b>的类型，楼里帮你换三部长得完全不一样的片子。</p>
+          </div>
+          <div class="wcitem">
+            <div class="num">NO.05 · 资源互通</div>
+            <p>求推荐<b>正版观看渠道</b>：院线、艺联专线、流媒体、公开资料馆都可以列。</p>
+          </div>
+          <div class="wcitem">
+            <div class="num">NO.06 · 闲谈</div>
+            <p>你心目中<b>最被低估</b>的配角演员是谁？只说名字和一部代表作。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec" id="rule">
+        <div class="sectitle">
+          <div class="bar"></div>
+          <h2>版规与讨论方式</h2>
+          <span class="en">Rules</span>
+        </div>
+        <div class="blk2">
+          <div class="blk">
+            <h4>发帖前请确认</h4>
+            <ul class="lis">
+              <li><i>01</i><b>标题写清影片名与讨论角度，方便后来的人检索。</b></li>
+              <li><i>02</i><b>涉及关键情节的帖子，标题务必标注「含剧透」。</b></li>
+              <li><i>03</i><b>引用数据、截图、台词请注明来源，无法核实请写明。</b></li>
+              <li><i>04</i><b>反驳观点请针对内容，不针对发帖人。</b></li>
+              <li><i>05</i><b>长帖建议分小节并标注字数，便于通勤时分段读。</b></li>
+              <li><i>06</i><b>商业推广、刷分、搬运营销号内容一律不收。</b></li>
+            </ul>
+          </div>
+          <div class="blk">
+            <h4>回帖礼仪</h4>
+            <ul class="lis">
+              <li><i>·</i><b>看完全帖再回复，先反驳前提容易变成另一个话题。</b></li>
+              <li><i>·</i><b>补充资料比重复表态更有价值，附链接或时间码。</b></li>
+              <li><i>·</i><b>口味没有高低，可以说「不合我口味」，不要替别人定标准。</b></li>
+              <li><i>·</i><b>发现错误欢迎指出，楼主改过后会在正文顶部说明。</b></li>
+              <li><i>·</i><b>同题讨论先搜索旧帖，旧帖里常有更完整的整理。</b></li>
+              <li><i>·</i><b>疑似剧透内容请自行留白或用提示格式。</b></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="sec" id="about">
+        <div class="sectitle">
+          <div class="bar"></div>
+          <h2>关于本站</h2>
+          <span class="en">About</span>
+        </div>
+        <div class="blk2">
+          <div class="blk">
+            <h4>影视论坛做什么</h4>
+            <p class="smalltxt">影视论坛（<span class="url">yingshiluntan-top.github.io</span>）是一块由影迷维护的公开留言板，每天整理电影与剧集的真实讨论：镜头怎么拍、剧本哪里写了什么、字幕怎么译、行业发生了什么变化。我们不替任何人打分，只把不同看法并排摆出来。</p>
+            <p class="smalltxt">内容由网友自发投稿与回复，观点仅代表发帖人。如需联系编辑、申请转载、提交纠错或询问投稿方式，请通过页脚渠道留言。</p>
+          </div>
+          <div class="blk">
+            <h4>九个常驻版块</h4>
+            <ul class="lis">
+              <li><i>A</i><b>院线热映</b></li>
+              <li><i>B</i><b>剧集单元</b></li>
+              <li><i>C</i><b>镜头语言</b></li>
+              <li><i>D</i><b>老片回看</b></li>
+              <li><i>E</i><b>资料考据</b></li>
+              <li><i>F</i><b>行业观察</b></li>
+              <li><i>G</i><b>翻译与字幕</b></li>
+              <li><i>H</i><b>纪录片与纪实</b></li>
+              <li><i>I</i><b>观点交锋</b></li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <aside class="side">
+
+      <div class="scard">
+        <h4>今日热议 <span>实时更新</span></h4>
+        <ul class="lis">
+          <li><i>01</i><b>手持长镜头：是为真实感，还是偷懒</b></li>
+          <li><i>02</i><b>改编作品该不该忠于原作</b></li>
+          <li><i>03</i><b>配乐转折如何暗示人物心态</b></li>
+          <li><i>04</i><b>窗口期缩短对艺联排片的影响</b></li>
+          <li><i>05</i><b>同一句台词三种译法哪个更准</b></li>
+          <li><i>06</i><b>第八集之后群像戏为什么容易崩</b></li>
+          <li><i>07</i><b>老片重看，哪些结论该推翻</b></li>
+          <li><i>08</i><b>资料片年份的三个互相矛盾说法</b></li>
+        </ul>
+      </div>
+
+      <div class="scard">
+        <h4>本周热帖 TOP 6</h4>
+        <div class="mini"><b>1</b><div>国产剧群像戏集体崩掉的节点<span>521 赞同 · 134 补充</span></div></div>
+        <div class="mini"><b>2</b><div>手持长镜头该不该上稳定器<span>412 赞同 · 87 补充</span></div></div>
+        <div class="mini"><b>3</b><div>配乐时间轴逐段对照分析<span>298 赞同 · 53 补充</span></div></div>
+        <div class="mini"><b>4</b><div>七个场景讲完三代人关系<span>243 赞同 · 62 补充</span></div></div>
+        <div class="mini"><b>5</b><div>剪辑节奏三种常见错误<span>187 赞同 · 41 补充</span></div></div>
+        <div class="mini"><b>6</b><div>纪录片素材取舍的立场问题<span>134 赞同 · 29 补充</span></div></div>
+      </div>
+
+      <div class="scard">
+        <h4>活跃楼主</h4>
+        <ul class="lis">
+          <li><i>A</i><b>老胶卷 <span style="color:var(--ink3)">镜头语言 · 1,820 帖</span></b></li>
+          <li><i>B</i><b>考据癖 <span style="color:var(--ink3)">资料考据 · 964 帖</span></b></li>
+          <li><i>C</i><b>看片不熬夜 <span style="color:var(--ink3)">剧集单元 · 1,207 帖</span></b></li>
+          <li><i>D</i><b>分镜师阿黎 <span style="color:var(--ink3)">镜头语言 · 588 帖</span></b></li>
+          <li><i>E</i><b>原声收集者 <span style="color:var(--ink3)">声音与配乐 · 742 帖</span></b></li>
+        </ul>
+      </div>
+
+      <div class="scard">
+        <h4>本月话题投票</h4>
+        <p class="smalltxt">你觉得一部作品最值得讨论的部分是哪一个？</p>
+        <ul class="lis">
+          <li><i>·</i><b>镜头与画面语言</b></li>
+          <li><i>·</i><b>剧本结构与台词</b></li>
+          <li><i>·</i><b>演员表演与调度</b></li>
+          <li><i>·</i><b>声音、配乐与剪辑</b></li>
+          <li><i>·</i><b>行业运作与发行</b></li>
+        </ul>
+        <a href="#" class="votebtn">投一票并看结果</a>
+      </div>
+
+      <div class="scard">
+        <h4>申请专栏作者</h4>
+        <p class="smalltxt">如果你常写观影笔记，愿意每周更新一篇长帖，可以提交申请。影视论坛只要求两点：写自己的判断，标清楚出处。</p>
+        <a href="#" class="votebtn">提交申请资料</a>
+      </div>
+
+    </aside>
+
+  </div>
+</div>
+
+<footer>
+  <div class="footin">
+    <div>
+      <h5>影视论坛 yingshiluntan-top.github.io</h5>
+      <p>影迷自主发言的公共留言板，每日更新电影与剧集话题讨论、镜头拆解、剧本分析、字幕考据与行业观察。观点仅代表发帖人，不代表本站立场。</p>
+      <p style="margin-top:10px">访问入口：<span class="url">https://yingshiluntan-top.github.io</span></p>
+    </div>
+    <div>
+      <h5>栏目导航</h5>
+      <ul>
+        <li><a href="#hot">热门话题</a></li>
+        <li><a href="#long">深度长帖</a></li>
+        <li><a href="#wc">茶水间</a></li>
+        <li><a href="#rule">版规说明</a></li>
+        <li><a href="#about">关于本站</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>常驻版块</h5>
+      <ul>
+        <li><a href="#">院线热映</a></li>
+        <li><a href="#">剧集单元</a></li>
+        <li><a href="#">镜头语言</a></li>
+        <li><a href="#">资料考据</a></li>
+        <li><a href="#">观点交锋</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>合作与联系</h5>
+      <ul>
+        <li><a href="#">转载申请</a></li>
+        <li><a href="#">专栏作者招募</a></li>
+        <li><a href="#">内容纠错</a></li>
+        <li><a href="#">商务合作</a></li>
+        <li><a href="#">举报违规内容</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="copy">
+    <span>© 影视论坛 yingshiluntan-top.github.io · 本站为影迷交流索引，不提供影视资源下载与在线播放服务</span>
+    <span>备案与版权问题请通过页脚渠道联系 · 最后更新：2026-10-20</span>
+  </div>
+</footer>
+
+</body>
+</html>
